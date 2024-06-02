@@ -1,6 +1,6 @@
-const express = require("express");
 const dashboardAdmin = require("./dashboard.routes");
-const app = express();
+const productsAdmin = require("./product.routes");
 module.exports = (app) => {
     app.use("/admin", dashboardAdmin);
+    app.use("/admin", productsAdmin);
 }
