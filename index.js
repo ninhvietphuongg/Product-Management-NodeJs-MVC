@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 const routesClient = require("./routes/client/index.routes");
+const database = require("./model/database");
+database.connect();
 const port = 3000;
 app.set("view engine", "pug");
 app.set("views", "views");
