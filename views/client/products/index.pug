@@ -1,2 +1,15 @@
 extends ../layouts/default.pug
+include ../mixins/box-head.pug
 block main
+    //- +box-head("Danh sách sản phẩm")
+    each items in products
+        .row
+            .col-4.mb-3
+                .product-item
+                    .inner-image
+                        img(src=`${items.thumbnail}`, alt=`${items.title}`)
+                    .inner-content
+                        h3.inner-title #{items.title}
+                        .inner-price-new #{items.priceNew}%
+                        .inner-price-old #{items.price}%
+                        .inner-discount #{items.discountPercentage} %

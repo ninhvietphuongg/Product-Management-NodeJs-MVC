@@ -9,7 +9,7 @@ const productShchema = mongoose.Schema({
     status : String, 
     position : Number,
     deleted : Boolean,
-    thumbnail : Date,
+    thumbnail : String,
 });
-const Product = mongoose.model(`products`, productShchema, `Product`)
+const Product = mongoose.model(`Product`, productShchema, `products`)
 module.exports = Product;
