@@ -4,9 +4,13 @@ block main
   h1(class="mb-4") Danh sách sản phẩm
   .card.mb-3
     .card-header Bộ lọc và Tìm kiếm
-    .card-body
-      each items in filterStatus
-        
+    .card-body 
+      each input in filterStatus 
+        button(
+        class = "btn btn-sm mr-1 btn-outline-success"
+        button-status = input.status
+        ) #{input.name}
+      
   
   table.table.table-hover.table-sm
     thead
@@ -30,11 +34,11 @@ block main
               height="auto"
             )
           td #{items.title}
-          td #{items.price}
+          td #{items.price}$
           td
             - if(items.status == "active")
                 a(href="#" class="badge badge-success") Hoạt động 
-            -   else 
+            - else 
                 a(href="#" class="badge badge-danger") Dừng hoạt động 
           td
             button(class="btn btn-warning btn-sm") Sửa
