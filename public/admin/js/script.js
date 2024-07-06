@@ -34,3 +34,14 @@ if(formSearch){
     })
 }
 // End Form Search Keyword
+const buttonPagination = document.querySelectorAll("[button-pagination]");
+if(buttonPagination){
+    const url = new URL(window.location.href);
+    buttonPagination.forEach(input => {
+        input.addEventListener("click", () => {
+            const attributeButton = input.getAttribute("button-pagination");
+            url.searchParams.set("page", attributeButton);
+            window.location.href = url.href;
+        })
+    })
+}

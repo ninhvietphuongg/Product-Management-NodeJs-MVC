@@ -1,5 +1,6 @@
 const Product = require("../../model/system");
 const helpersFilterStatus = require("../../helpers/filter.status");
+const helpersPagination = require("../../helpers/pagination.helper");
 module.exports.index = async (req, res) => {
     const find = {
         deleted : false,
@@ -16,10 +17,18 @@ module.exports.index = async (req, res) => {
         find.title = regex;
     }
     // End Find Search Title
-    const products = await Product.find(find)
+    // Pagination
+    const pagesCount = await Product.countDocuments(find);
+    const objectPagination = helpersPagination(req, pagesCount);
+    // End Pagination
+    const products = await Product
+    .find(find)
+    .skip(objectPagination.skipPages)
+    .limit(objectPagination.limitPages)
     res.render("admin/products/index", {
         pageTitle: "Trang danh sách sản phẩm",
         products : products,
-        filterStatus : filterStatus
+        filterStatus : filterStatus,
+        objectPagination : objectPagination,
     })
 }

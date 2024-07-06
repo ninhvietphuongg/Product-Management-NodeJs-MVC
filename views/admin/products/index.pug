@@ -1,5 +1,5 @@
 extends  ../layouts/default.pug
-
+include ../mixins/pagination.mixins.pug
 block main
   h1(class="mb-4") Danh sách sản phẩm
     .card.mb-3
@@ -61,3 +61,4 @@ block main
           td
             button(class="btn btn-warning btn-sm") Sửa
             button(class="btn btn-danger btn-sm ml-1") Xóa
+  +pagination(objectPagination)
