@@ -56,7 +56,7 @@ if (dataChangeStatus) {
         button.addEventListener("click", () => {
             const dataId = button.getAttribute("data-id");
             const dataChangeStatus = button.getAttribute("data-change-status");
-            const action = path +  `/${dataChangeStatus}/${dataId}?_method=PATCH`;
+            const action = path + `/${dataChangeStatus}/${dataId}?_method=PATCH`;
             formChangeStatus.action = action;
             formChangeStatus.submit();
         })
@@ -65,13 +65,13 @@ if (dataChangeStatus) {
 // End change status
 // Button delete
 const buttonDeleteStatus = document.querySelectorAll("[button-delete-status]");
-if(buttonDeleteStatus){
+if (buttonDeleteStatus) {
     buttonDeleteStatus.forEach(button => {
         button.addEventListener("click", () => {
             const formDeleteStatus = document.querySelector("[form-delete-status]");
             const dataId = button.getAttribute("data-id");
             const path = formDeleteStatus.getAttribute("path");
-            const action  = `${path}/${dataId}?_method=DELETE`;
+            const action = `${path}/${dataId}?_method=DELETE`;
             formDeleteStatus.action = action;
             console.log(buttonDeleteStatus)
             formDeleteStatus.submit();
@@ -79,3 +79,31 @@ if(buttonDeleteStatus){
     })
 }
 // End button delete
+// Multi Check Table
+const multiCheckTable = document.querySelector("[multi-check-table]");
+if (multiCheckTable) {
+    const checkBox = document.querySelectorAll("input[name = check-box-data]");
+    const checkBoxAll = document.querySelector("input[name = checkbox-all]");
+    checkBoxAll.addEventListener("click", () => {
+        if(checkBoxAll.checked == true){
+            checkBox.forEach(input => {
+                input.checked = true;
+            })
+        }else{
+            checkBox.forEach(input => {
+                input.checked = false;
+            })
+        }
+    })
+    checkBox.forEach(input => {
+        input.addEventListener("click", () => {
+            const countInput = document.querySelectorAll("input[name = check-box-data]:checked");
+            if(checkBox.length == countInput.length){
+                checkBoxAll.checked = true;
+            }else{
+                checkBoxAll.checked = false;
+            }
+        })
+    })
+}
+// End Multi Check Table
