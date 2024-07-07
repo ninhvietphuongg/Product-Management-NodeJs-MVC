@@ -48,11 +48,12 @@ if (buttonPagination) {
 const dataChangeStatus = document.querySelectorAll("[data-change-status]");
 if (dataChangeStatus) {
     const formChangeStatus = document.querySelector("[form-change-status]");
+    const path = formChangeStatus.getAttribute("path");
     dataChangeStatus.forEach(button => {
-        button.addEventListener("click", (event) => {
+        button.addEventListener("click", () => {
             const dataId = button.getAttribute("data-id");
             const dataChangeStatus = button.getAttribute("data-change-status");
-            const action = `/admin/products/${dataChangeStatus}/${dataId}`;
+            const action = path +  `/${dataChangeStatus}/${dataId}?_method=PATCH`;
             formChangeStatus.action = action;
             formChangeStatus.submit();
         })
