@@ -34,6 +34,7 @@ if (formSearch) {
     })
 }
 // End Form Search Keyword
+// Button pagination
 const buttonPagination = document.querySelectorAll("[button-pagination]");
 if (buttonPagination) {
     const url = new URL(window.location.href);
@@ -45,6 +46,8 @@ if (buttonPagination) {
         })
     })
 }
+// End button pagination
+// Change status
 const dataChangeStatus = document.querySelectorAll("[data-change-status]");
 if (dataChangeStatus) {
     const formChangeStatus = document.querySelector("[form-change-status]");
@@ -59,3 +62,20 @@ if (dataChangeStatus) {
         })
     })
 }
+// End change status
+// Button delete
+const buttonDeleteStatus = document.querySelectorAll("[button-delete-status]");
+if(buttonDeleteStatus){
+    buttonDeleteStatus.forEach(button => {
+        button.addEventListener("click", () => {
+            const formDeleteStatus = document.querySelector("[form-delete-status]");
+            const dataId = button.getAttribute("data-id");
+            const path = formDeleteStatus.getAttribute("path");
+            const action  = `${path}/${dataId}?_method=DELETE`;
+            formDeleteStatus.action = action;
+            console.log(buttonDeleteStatus)
+            formDeleteStatus.submit();
+        })
+    })
+}
+// End button delete
