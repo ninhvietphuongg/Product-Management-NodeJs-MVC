@@ -23,7 +23,7 @@ module.exports.index = async (req, res) => {
     // End Pagination
     const products = await Product
         .find(find)
-        .sort({position : "desc"})
+        .sort({ position: "desc" })
         .skip(objectPagination.skipPages)
         .limit(objectPagination.limitPages)
     res.render("admin/products/index", {
@@ -79,20 +79,40 @@ module.exports.changeMultiStatus = async (req, res) => {
             res.redirect(`back`);
             break;
         case "change-position":
-           for(var key of ids){
-            let [id, position] = key.split("-");
-            position = parseInt(position);
-            id = id.trim();
-            await Product.updateOne({
-                _id : id
-            },{
-                position : position
-            })
-           }
-           res.redirect(`back`);
+            for (var key of ids) {
+                let [id, position] = key.split("-");
+                position = parseInt(position);
+                id = id.trim();
+                await Product.updateOne({
+                    _id: id
+                }, {
+                    position: position
+                })
+            }
+            res.redirect(`back`);
             break;
         default:
             break;
     }
 
 }
+module.exports.createIndex = async (req, res) => {
+    res.render("admin/products/create", {
+        pageTitle: "Khởi tạo sản phẩm"
+    })
+}
+module.exports.createPost = async (req, res) => {
+    req.body.price = parseInt(req.body.price);
+    req.body.stock = parseInt(req.body.stock);
+    req.body.discountPercentage = parseInt(req.body.discountPercentage);
+    if (req.body.position == "") {
+        const count = await Product.countDocuments();
+        req.body.position = count + 1;
+    } else {
+        req.body.position = parseInt(req.body.position);
+    }
+    const product = new Product(req.body);
+    await product.save();
+    res.redirect(`/admin/products`)
+};
+
