@@ -66,6 +66,7 @@ block main
         th Hình ảnh
         th Tiêu đề
         th Giá
+        th Vị trí
         th Trạng thái
         th Hành động
     tbody
@@ -75,7 +76,7 @@ block main
             input(
             type="checkbox"
             name = "check-box-data"
-            data-id = items.id
+            value = items.id
             )
           td #{index + 1}
           td
@@ -87,6 +88,14 @@ block main
             )
           td #{items.title}
           td #{items.price}$
+          td 
+            input(
+              type="number"
+              style = "width : 100px"
+              name = "position"
+              value = `${items.position}`
+              min = "1"
+            )
           td
             - if(items.status == "active")
                 a(

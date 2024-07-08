@@ -23,6 +23,7 @@ module.exports.index = async (req, res) => {
     // End Pagination
     const products = await Product
         .find(find)
+        .sort({position : "desc"})
         .skip(objectPagination.skipPages)
         .limit(objectPagination.limitPages)
     res.render("admin/products/index", {
@@ -76,6 +77,21 @@ module.exports.changeMultiStatus = async (req, res) => {
                 deleted: true
             })
             res.redirect(`back`);
+            break;
+        case "change-position":
+           for(var key of ids){
+            let [id, position] = key.split("-");
+            position = parseInt(position);
+            id = id.trim();
+            await Product.updateOne({
+                _id : id
+            },{
+                position : position
+            })
+           }
+           res.redirect(`back`);
+            break;
+        default:
             break;
     }
 

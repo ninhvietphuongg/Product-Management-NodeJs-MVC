@@ -72,7 +72,6 @@ if (buttonDeleteStatus) {
             const path = formDeleteStatus.getAttribute("path");
             const action = `${path}/${dataId}?_method=DELETE`;
             formDeleteStatus.action = action;
-            console.log(buttonDeleteStatus)
             formDeleteStatus.submit();
         })
     })
@@ -81,14 +80,14 @@ if (buttonDeleteStatus) {
 // Multi Check Table
 const multiCheckTable = document.querySelector("[multi-check-table]");
 if (multiCheckTable) {
-    const checkBox = document.querySelectorAll("input[name = check-box-data]");
-    const checkBoxAll = document.querySelector("input[name = checkbox-all]");
+    const checkBox = multiCheckTable.querySelectorAll("input[name = check-box-data]");
+    const checkBoxAll = multiCheckTable.querySelector("input[name = checkbox-all]");
     checkBoxAll.addEventListener("click", () => {
-        if(checkBoxAll.checked == true){
+        if (checkBoxAll.checked == true) {
             checkBox.forEach(input => {
                 input.checked = true;
             })
-        }else{
+        } else {
             checkBox.forEach(input => {
                 input.checked = false;
             })
@@ -96,40 +95,40 @@ if (multiCheckTable) {
     })
     checkBox.forEach(input => {
         input.addEventListener("click", () => {
-            const countInput = document.querySelectorAll("input[name = check-box-data]:checked");
-            if(checkBox.length == countInput.length){
+            const countInput = multiCheckTable.querySelectorAll("input[name = check-box-data]:checked");
+            if (checkBox.length == countInput.length) {
                 checkBoxAll.checked = true;
-            }else{
+            } else {
                 checkBoxAll.checked = false;
 
             }
         })
     })
     const formSubmitMultiTabe = document.querySelector("[form-change-multi]");
-    if(formSubmitMultiTabe){
-        let array = [];
-        const inputsId = document.querySelector("input[name=ids]");
+    if (formSubmitMultiTabe) {
         formSubmitMultiTabe.addEventListener("submit", (event) => {
             event.preventDefault();
-            const optionValue = event.target.elements.type.value;
-            checkBox.forEach(input => {
-                if(input.checked){
-                    const dataId = input.getAttribute("data-id");
-                    array.push(dataId);
-                    inputsId.value = array;
-                }
-            })
-            if(optionValue == "delete-all"){
-                const isConfirm = confirm("Bạn muốn xóa dữ liệu này chứ ? ")
-                if(isConfirm){
-                    formSubmitMultiTabe.submit();
-                }
-            }else{
+            const type = event.target.elements.type.value;
+            const inputsChecked = multiCheckTable.querySelectorAll("input[name ='check-box-data']:checked");
+            if (inputsChecked.length > 0) {
+                let ids = [];
+                const inputIds = document.querySelector("input[name = 'ids']");
+                inputsChecked.forEach(input => {
+                    const id = input.value;
+                    if (type == "change-position") {
+                        const position = input.closest("tr").querySelector("input[name='position']").value;
+                        ids.push(`${id} - ${position}`);
+                    } else {
+                        ids.push(id)
+                    }
+                })
+                inputIds.value = ids.join(",");
                 formSubmitMultiTabe.submit();
+
+            } else {
+                alert("Vui lòng chọn ít nhất 1 bản ghi !");
             }
         })
-        
     }
-    
 }
-// End Multi Check Table
+// End CheckBox Multi
