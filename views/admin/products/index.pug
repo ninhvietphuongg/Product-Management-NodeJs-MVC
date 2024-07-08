@@ -1,5 +1,10 @@
 extends  ../layouts/default.pug
-include ../mixins/pagination.mixins.pug
+include ../mixins/pagination.mixin.pug
+include ../mixins/form.change.multi.mixin.pug
+include ../mixins/filter.status.mixin.pug
+include ../mixins/form.search.mixin.pug
+
+
 block main
   h1(class="mb-4") Danh sách sản phẩm
     .card.mb-3
@@ -7,53 +12,26 @@ block main
       .card-body
         .row
           .col-6
-            each item in filterStatus
-              button(
-                class=`btn btn-sm ml-1 btn-outline-success ${item.class}` 
-                button-status=item.status
-              ) #{item.name}
+            +filter-status(filterStatus)
           .col-6
-            form(id="form-search")
-              .input-group
-                input(
-                  type="text"
-                  placeholder="Nhập từ khóa"
-                  name="keyword"
-                  class="form-control"
-                  value = name
-                )
-                .input-group-append
-                  button(
-                    class="btn btn-success"
-                    type="submit"
-                    button-form-search
-                  ) Tìm
-        
+            +form-search(keyword)        
   
   table(
     class = "table table-hover table-sm"
     multi-check-table
     )
-    form(
-          action = "/admin/products/change-multi-status?_method=PATCH" 
-          method = "POST"
-          form-change-multi
-        )
-          .d-flex.align-item-start 
-            .form-group 
-              select(name="type" class = "form-control")
-                option(value = "active") Hoạt động
-                option(value = "inactive") Dừng hoạt động
-                option(value = "delete-all") Xóa sản phẩm 
-                option(value = "change-position") Thay đổi vị trí
-            .form-group 
-              input(
-                type = "text"
-                name = "ids"
-                value = ""
-                class = "form-control d-none"
-              )
-            button(type = "submit" class = "btn btn-primary") Áp dụng
+    .card.mb-3
+      .card-header Danh sách
+      .card-body
+            .row 
+              .col-8
+                +form-change-multi(`/admin/products/change-multi-status?_method=PATCH`)
+              .col-4
+                a(
+                  href=`/admin/products/create`
+                  class = "btn btn-outline-success"
+                ) + Create
+
     thead
 
       tr
