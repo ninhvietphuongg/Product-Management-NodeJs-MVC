@@ -1,4 +1,6 @@
 const express = require("express");
+const bodyParser = require('body-parser')
+
 const methodOverride = require('method-override')
 const app = express();
 const routesClient = require("./routes/client/index.routes");
@@ -10,6 +12,8 @@ app.set("view engine", "pug");
 app.set("views", "views");
 app.use(express.static("public"));
 app.use(methodOverride('_method'))
+app.use(bodyParser.urlencoded({ extended: false }))
+
 routesAdmin(app);
 routesClient(app);
 app.listen(port, () => {

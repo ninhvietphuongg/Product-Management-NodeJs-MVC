@@ -20,7 +20,6 @@ if (listButtonStatus.length > 0) {
 const formSearch = document.querySelector("#form-search");
 if (formSearch) {
     let url = new URL(window.location.href);
-    const buttonFormSearch = formSearch.querySelector("[button-form-search]");
     formSearch.addEventListener("submit", (event) => {
         event.preventDefault();
         const keyword = event.target.elements.keyword.value;
@@ -102,8 +101,35 @@ if (multiCheckTable) {
                 checkBoxAll.checked = true;
             }else{
                 checkBoxAll.checked = false;
+
             }
         })
     })
+    const formSubmitMultiTabe = document.querySelector("[form-change-multi]");
+    if(formSubmitMultiTabe){
+        let array = [];
+        const inputsId = document.querySelector("input[name=ids]");
+        formSubmitMultiTabe.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const optionValue = event.target.elements.type.value;
+            checkBox.forEach(input => {
+                if(input.checked){
+                    const dataId = input.getAttribute("data-id");
+                    array.push(dataId);
+                    inputsId.value = array;
+                }
+            })
+            if(optionValue == "delete-all"){
+                const isConfirm = confirm("Bạn muốn xóa dữ liệu này chứ ? ")
+                if(isConfirm){
+                    formSubmitMultiTabe.submit();
+                }
+            }else{
+                formSubmitMultiTabe.submit();
+            }
+        })
+        
+    }
+    
 }
 // End Multi Check Table

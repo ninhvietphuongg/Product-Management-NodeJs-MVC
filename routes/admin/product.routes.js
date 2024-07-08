@@ -4,4 +4,5 @@ const router = express.Router();
 router.get("/products", productsAdmin.index);
 router.patch(`/products/change-status/:status/:id`, productsAdmin.changeStatus);
 router.delete(`/products/delete-status/:id`, productsAdmin.deleteStatus);
+router.patch(`/products/change-multi-status`, productsAdmin.changeMultiStatus);
 module.exports = router;
