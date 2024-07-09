@@ -8,8 +8,11 @@ const productShchema = mongoose.Schema({
     stock : Number,
     status : String, 
     position : Number,
-    deleted : Boolean,
     thumbnail : String,
+    deleted : {
+        type : Boolean,
+        default : false,
+    }
 });
 const Product = mongoose.model(`Product`, productShchema, `products`)
 module.exports = Product;

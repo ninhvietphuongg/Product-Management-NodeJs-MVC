@@ -1,6 +1,7 @@
 const express = require("express");
-const multer  = require('multer')
-const upload = multer({ dest: './public/admin/img/' })
+const multer = require("multer");
+const multerStorage  = require('../../helpers/multer.storage');
+const upload = multer({storage : multerStorage()})
 const productsAdmin = require("../../controller/admin/product.controller");
 const router = express.Router();
 router.get("/products", productsAdmin.index);
