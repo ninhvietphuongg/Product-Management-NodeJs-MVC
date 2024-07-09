@@ -39,7 +39,18 @@
     padding: 0;
     margin: 0;
   }
+  .image-preview {
+    width: 150px;
+    height: auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    padding: 15px;
+  }
   
+  .image-preview[src=""] {
+    display: none;
+  }
   .sider .inner-menu ul li a {
     color: #fff;
     display: block;

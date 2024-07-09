@@ -50,7 +50,7 @@ if (buttonPagination) {
 const dataChangeStatus = document.querySelectorAll("[data-change-status]");
 if (dataChangeStatus) {
     const formChangeStatus = document.querySelector("[form-change-status]");
-    const path = formChangeStatus.getAttribute("path");
+    const path = document.querySelector("[path]");
     dataChangeStatus.forEach(button => {
         button.addEventListener("click", () => {
             const dataId = button.getAttribute("data-id");
@@ -132,3 +132,14 @@ if (multiCheckTable) {
     }
 }
 // End CheckBox Multi
+const uploadImage = document.querySelector("[upload-image]");
+if(uploadImage){
+    const uploadImageInput = document.querySelector("[upload-image-input]");
+    const uploadImagePreview = document.querySelector("[upload-image-preview]");
+    uploadImageInput.addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        if(file){
+            uploadImagePreview.src = URL.createObjectURL(file);
+        }
+    })
+}
