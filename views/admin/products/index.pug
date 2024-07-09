@@ -3,9 +3,12 @@ include ../mixins/pagination.mixin.pug
 include ../mixins/form.change.multi.mixin.pug
 include ../mixins/filter.status.mixin.pug
 include ../mixins/form.search.mixin.pug
+include ../mixins/alert.mixin.pug
 
 
 block main
+
+  +alert-success()
   h1(class="mb-4") Danh sách sản phẩm
     .card.mb-3
       .card-header Bộ lọc và Tìm kiếm
@@ -15,6 +18,7 @@ block main
             +filter-status(filterStatus)
           .col-6
             +form-search(keyword)        
+  
   
   table(
     class = "table table-hover table-sm"

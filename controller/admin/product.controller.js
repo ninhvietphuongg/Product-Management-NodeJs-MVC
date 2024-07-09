@@ -41,6 +41,8 @@ module.exports.changeStatus = async (req, res) => {
     }, {
         status: status
     })
+    req.flash('success', 'Cập nhật trạng thái thành công!');
+
     res.redirect("back");
 }
 module.exports.deleteStatus = async (req, res) => {
@@ -112,7 +114,7 @@ module.exports.createPost = async (req, res) => {
         req.body.position = parseInt(req.body.position);
     }
     if(req.file){
-        req.body.thumbnail = `/admin/uploads/${req.file.filename}`
+        req.body.thumbnail = `/admin/uploads/${req.file.filename}`;
     }
     const product = new Product(req.body);
     await product.save();

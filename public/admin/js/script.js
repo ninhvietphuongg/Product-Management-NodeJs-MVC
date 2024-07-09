@@ -50,7 +50,7 @@ if (buttonPagination) {
 const dataChangeStatus = document.querySelectorAll("[data-change-status]");
 if (dataChangeStatus) {
     const formChangeStatus = document.querySelector("[form-change-status]");
-    const path = document.querySelector("[path]");
+    const path = formChangeStatus.getAttribute("path");
     dataChangeStatus.forEach(button => {
         button.addEventListener("click", () => {
             const dataId = button.getAttribute("data-id");
@@ -132,6 +132,7 @@ if (multiCheckTable) {
     }
 }
 // End CheckBox Multi
+// Preview upload image
 const uploadImage = document.querySelector("[upload-image]");
 if(uploadImage){
     const uploadImageInput = document.querySelector("[upload-image-input]");
@@ -143,3 +144,18 @@ if(uploadImage){
         }
     })
 }
+// End preview upload image
+// Close alert
+const showAlert = document.querySelector("[show-alert]");
+if(showAlert){
+    let time = showAlert.getAttribute("data-time");
+    time = parseInt(time);
+    setTimeout(() => {
+        showAlert.classList.add("alert-hidden");
+    }, time)
+    const closeAlert = showAlert.querySelector("[close-alert]");
+    closeAlert.addEventListener("click", () => {
+        showAlert.classList.add("alert-hidden");
+    })
+}
+// End close alert
