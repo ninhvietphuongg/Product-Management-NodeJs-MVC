@@ -58,6 +58,7 @@ if (dataChangeStatus) {
             const action = path + `/${dataChangeStatus}/${dataId}?_method=PATCH`;
             formChangeStatus.action = action;
             formChangeStatus.submit();
+            
         })
     })
 }
