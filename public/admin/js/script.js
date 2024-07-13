@@ -50,15 +50,16 @@ if (buttonPagination) {
 const dataChangeStatus = document.querySelectorAll("[data-change-status]");
 if (dataChangeStatus) {
     const formChangeStatus = document.querySelector("[form-change-status]");
-    const path = formChangeStatus.getAttribute("path");
+
     dataChangeStatus.forEach(button => {
         button.addEventListener("click", () => {
+            const path = formChangeStatus.getAttribute("path");
             const dataId = button.getAttribute("data-id");
             const dataChangeStatus = button.getAttribute("data-change-status");
             const action = path + `/${dataChangeStatus}/${dataId}?_method=PATCH`;
             formChangeStatus.action = action;
             formChangeStatus.submit();
-            
+
         })
     })
 }
@@ -68,12 +69,15 @@ const buttonDeleteStatus = document.querySelectorAll("[button-delete-status]");
 if (buttonDeleteStatus) {
     buttonDeleteStatus.forEach(button => {
         button.addEventListener("click", () => {
-            const formDeleteStatus = document.querySelector("[form-delete-status]");
-            const dataId = button.getAttribute("data-id");
-            const path = formDeleteStatus.getAttribute("path");
-            const action = `${path}/${dataId}?_method=DELETE`;
-            formDeleteStatus.action = action;
-            formDeleteStatus.submit();
+            const isConfirm = confirm("Bạn muốn xóa dữ liệu này chứ ?");
+            if (isConfirm) {
+                const formDeleteStatus = document.querySelector("[form-delete-status]");
+                const dataId = button.getAttribute("data-id");
+                const path = formDeleteStatus.getAttribute("path");
+                const action = `${path}/${dataId}?_method=DELETE`;
+                formDeleteStatus.action = action;
+                formDeleteStatus.submit();
+            }
         })
     })
 }
@@ -135,12 +139,12 @@ if (multiCheckTable) {
 // End CheckBox Multi
 // Preview upload image
 const uploadImage = document.querySelector("[upload-image]");
-if(uploadImage){
+if (uploadImage) {
     const uploadImageInput = document.querySelector("[upload-image-input]");
     const uploadImagePreview = document.querySelector("[upload-image-preview]");
     uploadImageInput.addEventListener("change", (e) => {
         const file = e.target.files[0];
-        if(file){
+        if (file) {
             uploadImagePreview.src = URL.createObjectURL(file);
         }
     })
@@ -148,7 +152,7 @@ if(uploadImage){
 // End preview upload image
 // Close alert
 const showAlert = document.querySelector("[show-alert]");
-if(showAlert){
+if (showAlert) {
     let time = showAlert.getAttribute("data-time");
     time = parseInt(time);
     setTimeout(() => {

@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require('body-parser')
-
+const system = require("./config/system.confix");
 const methodOverride = require('method-override');
 const flash = require('express-flash');
 const cookieParser = require("cookie-parser");
@@ -20,6 +20,7 @@ app.use(cookieParser('keyboard cat'));
 app.use(session({ cookie: { maxAge: 60000 }}));
 app.use(flash());
 
+app.locals.PREFIX_ADMIN = system.prefixAdmin;
 routesAdmin(app);
 routesClient(app);
 app.listen(port, () => {

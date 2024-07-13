@@ -1,6 +1,7 @@
 const Product = require("../../model/system");
 const helpersFilterStatus = require("../../helpers/filter.status");
 const helpersPagination = require("../../helpers/pagination.helper");
+// [GET] Index
 module.exports.index = async (req, res) => {
     const find = {
         deleted: false,
@@ -33,6 +34,7 @@ module.exports.index = async (req, res) => {
         objectPagination: objectPagination,
     })
 }
+// [PATCH] Change Status (Active Or Inactive)
 module.exports.changeStatus = async (req, res) => {
     const status = req.params.status;
     const id = req.params.id;
@@ -45,6 +47,7 @@ module.exports.changeStatus = async (req, res) => {
 
     res.redirect("back");
 }
+// [DELETE] Delete status
 module.exports.deleteStatus = async (req, res) => {
     const id = req.params.id;
     await Product.deleteOne({
@@ -52,6 +55,7 @@ module.exports.deleteStatus = async (req, res) => {
     })
     res.redirect(`back`);
 }
+// [PATCH] Change multi Status
 module.exports.changeMultiStatus = async (req, res) => {
     const type = req.body.type;
     const ids = req.body.ids.split(",");
@@ -98,11 +102,13 @@ module.exports.changeMultiStatus = async (req, res) => {
     }
 
 }
+// [GET] Index create
 module.exports.createIndex = async (req, res) => {
     res.render("admin/products/create", {
         pageTitle: "Khởi tạo sản phẩm"
     })
 }
+// [POST] Create data
 module.exports.createPost = async (req, res) => {
     req.body.price = parseInt(req.body.price);
     req.body.stock = parseInt(req.body.stock);
@@ -120,4 +126,30 @@ module.exports.createPost = async (req, res) => {
     await product.save();
     res.redirect(`/admin/products`)
 };
-
+// [GET] Index edit
+module.exports.editIndex = async(req, res) => {
+    const id = req.params.id;
+    const products = await Product.findOne({
+        _id : id,
+        deleted : false
+    });
+    res.render("admin/products/edit", {
+        pageTitle :  "Trang chỉnh sửa",
+        products : products
+    })
+}
+//[PATCH] edit data
+module.exports.editPost = async(req, res) => {
+    const id = req.params.id;
+    req.body.price = parseInt(req.body.price);
+    req.body.discountPercentage = parseInt(req.body.discountPercentage);
+    req.body.stock = parseInt(req.body.stock);
+    req.body.position = parseInt(req.body.position);
+    if(req.file){
+        req.body.thumbnail = req.file.filename;
+    }
+    await Product.updateOne({
+        _id : id
+    },req.body)
+    res.redirect(`/admin/products`)
+}

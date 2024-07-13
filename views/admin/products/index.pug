@@ -29,10 +29,10 @@ block main
       .card-body
             .row 
               .col-8
-                +form-change-multi(`/admin/products/change-multi-status?_method=PATCH`)
+                +form-change-multi(`/${PREFIX_ADMIN}/products/change-multi-status?_method=PATCH`)
               .col-4
                 a(
-                  href=`/admin/products/create`
+                  href=`/${PREFIX_ADMIN}/products/create`
                   class = "btn btn-outline-success"
                 ) + Create
 
@@ -92,7 +92,11 @@ block main
                   data-change-status = "active"
                   ) Dừng hoạt động 
           td
-            button(class="btn btn-warning btn-sm") Sửa
+            a(
+              href = `/${PREFIX_ADMIN}/products/edit/${items.id}`
+              class="btn btn-warning btn-sm"
+              data-id = items.id
+            ) Sửa
             button(
               class="btn btn-danger btn-sm ml-1"
               button-delete-status
@@ -101,12 +105,12 @@ block main
   +pagination(objectPagination)
   form(action=""
   method="POST"
-  path=`/admin/products/change-status`
+  path = `/${PREFIX_ADMIN}/products/change-status`
   form-change-status
   ) 
   form(action=""
   method="POST"
-  path=`/admin/products/delete-status`
+  path=`/${PREFIX_ADMIN}/products/delete-status`
   form-delete-status
   )
   
