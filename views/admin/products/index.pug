@@ -9,34 +9,40 @@ include ../mixins/alert.mixin.pug
 block main
 
   +alert-success()
-  h1(class="mb-4") Danh sách sản phẩm
-    .card.mb-3
-      .card-header Bộ lọc và Tìm kiếm
-      .card-body
-        .row
-          .col-4
-            +filter-status(filterStatus)
-          .col-4
-            div(sort)
-                select(
-                  class="form-control"
-                  name="sort"
-                  sort-select
-                )
-                  option(value="position-desc") Vị trí giảm dần
-                  option(value="position-asc") Vị trí tăng dần
-                  option(value="price-desc") Giá giảm dần
-                  option(value="price-asc") Giá tăng dần
-                  option(value="title-asc") Tiêu đề A - Z
-                  option(value="title-desc") Tiêu đề Z - A
+  h1(class="mb-4") Quản lý sản phẩm
 
-                button(
-                  class="btn btn-danger mt-2"
-                  sort-clear
-                ) Clear     
-      
-          .col-4
-            +form-search(keyword)
+  .card.mb-3
+    .card-header Bộ lọc và Tìm kiếm
+    .card-body
+      .row
+        .col-6
+          +filter-status(filterStatus)
+        .col-6
+          +form-search(keyword)
+  
+  .card.mb-3
+    .card-header Sắp xếp
+    .card-body
+      .row
+        .col-5
+          div(sort)
+            select(
+              class="form-control"
+              name="sort"
+              sort-select
+            )
+              option(value="position-desc") Vị trí giảm dần
+              option(value="position-asc") Vị trí tăng dần
+              option(value="price-desc") Giá giảm dần
+              option(value="price-asc") Giá tăng dần
+              option(value="title-asc") Tiêu đề A - Z
+              option(value="title-desc") Tiêu đề Z - A
+
+            button(
+              class="btn btn-danger mt-2"
+              sort-clear
+            ) Clear
+  
     
   table(
     class = "table table-hover table-sm"
@@ -47,12 +53,12 @@ block main
       .card-body
             .row 
               .col-8
-                +form-change-multi(`/${PREFIX_ADMIN}/products/change-multi-status?_method=PATCH`)
+                  +form-change-multi(`/${prefixAdmin}/products/change-multi-status?_method=PATCH`)
               .col-4
-                a(
-                  href=`/${PREFIX_ADMIN}/products/create`
-                  class = "btn btn-success"
-                ) + Create
+                    a(
+                      href=`/${prefixAdmin}/products/create`
+                      class="btn btn-outline-success"
+                    ) + Thêm mới
 
     thead
       tr
@@ -110,11 +116,11 @@ block main
                   ) Dừng hoạt động 
           td
             a(
-              href=`/${PREFIX_ADMIN}/products/detail/${items.id}`
-              class = "btn btn-secondary btn-sm"
+              href=`/${prefixAdmin}/products/detail/${items.id}`
+              class = "btn btn-info btn-sm"
             ) Chỉnh sửa
             a(
-              href = `/${PREFIX_ADMIN}/products/edit/${items.id}`
+              href = `/${prefixAdmin}/products/edit/${items.id}`
               class="btn btn-warning btn-sm ml-1"
             ) Sửa
             button(
@@ -125,12 +131,12 @@ block main
   +pagination(objectPagination)
   form(action=""
   method="POST"
-  path = `/${PREFIX_ADMIN}/products/change-status`
+  path = `/${prefixAdmin}/products/change-status`
   form-change-status
   ) 
   form(action=""
   method="POST"
-  path=`/${PREFIX_ADMIN}/products/delete-status`
+  path=`/${prefixAdmin}/products/delete-status`
   form-delete-status
   )
   

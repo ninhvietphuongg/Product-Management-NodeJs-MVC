@@ -20,7 +20,7 @@ app.use(cookieParser('keyboard cat'));
 app.use(session({ cookie: { maxAge: 60000 }}));
 app.use(flash());
 
-app.locals.PREFIX_ADMIN = system.prefixAdmin;
+app.locals.prefixAdmin = system.prefixAdmin;
 routesAdmin(app);
 routesClient(app);
 app.listen(port, () => {

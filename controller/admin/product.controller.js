@@ -6,6 +6,7 @@ module.exports.index = async (req, res) => {
     const find = {
         deleted: false,
     }
+    let sort = {};
     // Filter status
     const filterStatus = helpersFilterStatus(req);
     if (req.query.status) {
@@ -18,13 +19,22 @@ module.exports.index = async (req, res) => {
         find.title = regex;
     }
     // End Find Search Title
+    // Sort data
+    if(req.query.sortKey && req.query.sortValue){
+        const sortKey = req.query.sortKey;
+        const sortValue = req.query.sortValue;
+        sort[sortKey] = sortValue;
+    }else{
+        sort.position = "desc";
+    }
+    // End Sort Data
     // Pagination
     const pagesCount = await Product.countDocuments(find);
     const objectPagination = helpersPagination(req, pagesCount);
     // End Pagination
     const products = await Product
         .find(find)
-        .sort({ position: "desc" })
+        .sort(sort)
         .skip(objectPagination.skipPages)
         .limit(objectPagination.limitPages)
     res.render("admin/products/index", {
