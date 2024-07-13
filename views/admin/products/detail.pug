@@ -23,10 +23,10 @@ block main
   if (product.status)
     div(class="mb-4")
       span Trạng thái:
-      if (product.status === "active")
-        span(class="badge badge-success") Hoạt động
-      else
-        span(class="badge badge-danger") Dừng hoạt động
+  if (product.status === "active")
+    span(class="badge badge-success") Hoạt động
+  else
+    span(class="badge badge-danger") Dừng hoạt động
 
   if (product.position)
     div(class="mb-4") Vị trí: <b>#{product.position}</b>
@@ -35,5 +35,5 @@ block main
     div(class="mb-4") #{product.description}
   a(
     href=`/${PREFIX_ADMIN}/products/edit/${product.id}`
-    class = "btn btn-warning"
-   ) Chỉnh sửa
+    class = "btn btn-warning mb-4"
+  ) Chỉnh sửa
