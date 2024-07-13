@@ -12,4 +12,5 @@ router.get("/products/create", productsAdmin.createIndex)
 router.post("/products/create", upload.single("thumbnail") ,productsAdmin.createPost)
 router.get("/products/edit/:id", productsAdmin.editIndex)
 router.patch("/products/edit/:id",upload.single("thumbnail"), productsAdmin.editPost);
+router.get("/products/detail/:id", productsAdmin.detailIndex);
 module.exports = router;

@@ -153,3 +153,14 @@ module.exports.editPost = async(req, res) => {
     },req.body)
     res.redirect(`/admin/products`)
 }
+//[GET] index detail
+module.exports.detailIndex = async(req, res) => {
+    const id = req.params.id;
+    const products = await Product.findOne({
+        _id : id,
+    })
+    res.render("admin/products/detail",{
+        pageTitle : "Trang chi tiết sản phẩm",
+        product : products
+    })
+}

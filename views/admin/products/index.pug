@@ -93,9 +93,12 @@ block main
                   ) Dừng hoạt động 
           td
             a(
+              href=`/${PREFIX_ADMIN}/products/detail/${items.id}`
+              class = "btn btn-secondary btn-sm"
+            ) Chỉnh sửa
+            a(
               href = `/${PREFIX_ADMIN}/products/edit/${items.id}`
-              class="btn btn-warning btn-sm"
-              data-id = items.id
+              class="btn btn-warning btn-sm ml-1"
             ) Sửa
             button(
               class="btn btn-danger btn-sm ml-1"
