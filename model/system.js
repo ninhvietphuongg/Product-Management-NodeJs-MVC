@@ -12,7 +12,8 @@ const productShchema = mongoose.Schema({
     thumbnail : String,
     slug : {
         type: String,
-        slug : "title"
+        slug : "title",
+        unique : true
     },
     deleted : {
         type : Boolean,
