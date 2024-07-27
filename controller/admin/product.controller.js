@@ -156,7 +156,7 @@ module.exports.editPost = async(req, res) => {
     req.body.stock = parseInt(req.body.stock);
     req.body.position = parseInt(req.body.position);
     if(req.file){
-        req.body.thumbnail = req.file.filename;
+        req.body.thumbnail = `/admin/uploads/${req.file.filename}`;
     }
     await Product.updateOne({
         _id : id

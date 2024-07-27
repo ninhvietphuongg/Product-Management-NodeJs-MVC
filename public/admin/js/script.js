@@ -166,24 +166,26 @@ if (showAlert) {
 // End close alert
 // Sort Data
 const divSort = document.querySelector('[sort]');
-if(divSort){
+if (divSort) {
     let url = new URL(window.location.href);
     const sortSelect = divSort.querySelector("[sort-select]");
     const sortClear = divSort.querySelector("[sort-clear]");
     sortSelect.addEventListener("change", (event) => {
         const valueSort = event.target.value;
-        const[sortKey, sortValue] = valueSort.split("-");
+        const [sortKey, sortValue] = valueSort.split("-");
         url.searchParams.set("sortKey", sortKey);
         url.searchParams.set("sortValue", sortValue);
         window.location.href = url.href;
     });
-    sortSelect.addEventListener("change", () => {
         const sortKey = url.searchParams.get("sortKey");
         const sortValue = url.searchParams.get("sortValue");
-        const conString = sortKey + "-" + sortValue;
-        const optionValue = sortSelect.querySelector(`option[value=${conString}]`);
-        optionValue.selected = true;
-    });
+        if (sortKey && sortValue) {
+            const conString = `${sortKey}-${sortValue}`;
+            const optionValue = sortSelect.querySelector(`option[value=${conString}]`);
+            optionValue.selected = true;
+            console.log(optionValue)
+
+        }
     sortClear.addEventListener("click", () => {
         url.searchParams.delete("sortKey");
         url.searchParams.delete("sortValue");

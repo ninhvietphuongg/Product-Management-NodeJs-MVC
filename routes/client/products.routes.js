@@ -1,5 +1,6 @@
 const express = require("express");
-const produtController = require("../../controller/client/products.controller")
+const productController = require("../../controller/client/products.controller");
 const router = express.Router();
-router.get("/products", produtController.index)
+router.get("/products", productController.index);
+router.get("/products/detail/:slug", productController.detailIndex);
 module.exports = router;

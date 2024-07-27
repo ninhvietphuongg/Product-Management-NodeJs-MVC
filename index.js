@@ -1,6 +1,10 @@
 const express = require("express");
 const bodyParser = require('body-parser')
 const system = require("./config/system.confix");
+const path = require('path');
+const dotenv = require('dotenv')
+dotenv.config();
+
 const methodOverride = require('method-override');
 const flash = require('express-flash');
 const cookieParser = require("cookie-parser");
@@ -10,10 +14,11 @@ const routesClient = require("./routes/client/index.routes");
 const routesAdmin = require("./routes/admin/index.routes");
 const database = require("./model/database");
 database.connect();
-const port = 3000;
+const port = process.env.PORT;
 app.set("view engine", "pug");
 app.set("views", "views");
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
 app.use(methodOverride('_method'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser('keyboard cat'));
