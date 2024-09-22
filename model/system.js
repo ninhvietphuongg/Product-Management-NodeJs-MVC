@@ -18,7 +18,12 @@ const productShchema = mongoose.Schema({
     deleted : {
         type : Boolean,
         default : false,
-    }
-});
+    },
+    deletedAt : Date,
+},
+{
+    timestamp : true
+}
+);
 const Product = mongoose.model(`Product`, productShchema, `products`)
 module.exports = Product;

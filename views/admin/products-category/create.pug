@@ -4,58 +4,34 @@ block main
   h1(class="mb-4") Thêm mới sản phẩm
 
   form(
-    action=`/${prefixAdmin}/products/edit/${products.id}?_method=PATCH`
-    id="form-edit-product"
+    action=`/${prefixAdmin}/products-cactegory/create`
     method="POST"
     enctype="multipart/form-data"
   )
     div(class="form-group")
-      label(for="title") Tiêu đề
+      label(for="title") Danh mục
       input(
         type="text"
         class="form-control"
         id="title"
         name="title"
-        value = products.title
         required
-      ) 
+      )
+    div(class="form-group")
+      label(for="parent_id") Danh mục cha
+      input(
+        type="text"
+        class="form-control"
+        id="parent_id"
+        name="parent_id"
+      )
     div(class="form-group")
       label(for="desc") Mô tả
       textarea(
-        class="form-control"
+        class="form-control content"
         id="desc"
         name="description"
         rows="5"
-      ) #{products.description}
-    div(class="form-group")
-      label(for="price") Giá
-      input(
-        type="number"
-        class="form-control"
-        id="price"
-        name="price"
-        value=products.price
-        min="0"
-      ) 
-    div(class="form-group")
-      label(for="discount") % Giảm giá
-      input(
-        type="number"
-        class="form-control"
-        id="discount"
-        name="discountPercentage"
-        value=products.discountPercentage
-        min="0"
-      )
-    div(class="form-group")
-      label(for="stock") Số lượng
-      input(
-        type="number"
-        class="form-control"
-        id="stock"
-        name="stock"
-        value=products.stock
-        min="0"
       )
     div(
       class="form-group"
@@ -71,7 +47,7 @@ block main
         upload-image-input
       )
       img(
-        src=products.thumbnail
+        src="" 
         upload-image-preview
         class = "image-preview"
         )
@@ -82,7 +58,6 @@ block main
         class="form-control"
         id="position"
         name="position"
-        value=products.position
         placeholder="Tự động tăng"
         min="1"
       )
@@ -92,8 +67,8 @@ block main
         class="form-check-input"
         id="statusActive"
         name="status"
-        value = "active"
-        checked=(products.status == "active" ? true : false)
+        value="active"
+        checked
       )
       label(for="statusActive" class="form-check-label") Hoạt động
     div(class="form-group form-check form-check-inline")
@@ -101,13 +76,12 @@ block main
         type="radio"
         class="form-check-input"
         id="statusInActive"
-        name = "status"
-        value = "inactive"
-        checked=(products.status == "inactive" ? true : false)
+        name="status"
+        value="inactive"
       )
       label(for="statusInActive" class="form-check-label") Dừng hoạt động
     div(class="form-group")
       button(
         type="submit"
         class="btn btn-primary"
-      ) Cập nhật
+      ) Tạo mới

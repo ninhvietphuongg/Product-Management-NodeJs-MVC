@@ -19,4 +19,5 @@ router.patch("/products/edit/:id",
      uploadCloud.uploadSingle,
       productsAdmin.editPost);
 router.get("/products/detail/:id", productsAdmin.detailIndex);
+
 module.exports = router;
