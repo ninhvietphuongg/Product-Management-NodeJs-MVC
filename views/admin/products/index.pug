@@ -83,7 +83,7 @@ block main
             name = "check-box-data"
             value = items.id
             )
-          td #{index + 1}
+          td #{objectPagination.limitPages*(objectPagination.currentPage-1) + (index + 1)}
           td
             img(
               src=`${items.thumbnail}`
