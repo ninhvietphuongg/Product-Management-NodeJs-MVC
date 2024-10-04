@@ -11,5 +11,8 @@ router.post("/products-cactegory/create",
     uploadCloud.uploadSingle,
     productsCategory.createPost);
 router.patch(`/products-category/change-status/:status/:id`, productsCategory.changeStatus);
+router.delete(`/products-category/delete-status/:id`, productsCategory.deleteStatus);
+router.get(`/products-category/edit/:id`, productsCategory.editIndex)
+
 
 module.exports = router;

@@ -1,5 +1,6 @@
 const ProductCategory = require("../../model/products-category.model");
 const helpersFilterStatus = require("../../helpers/filter.status");
+const createTreeHelper = require("../../helpers/create.tree.helpers");
 
 module.exports.index = async (req, res) => {
 
@@ -23,9 +24,15 @@ module.exports.index = async (req, res) => {
         filterStatus : filterStatus
     })
 }
-module.exports.create = (req, res) => {
+module.exports.create = async(req, res) => {
+    let find = {
+        deleted : false
+    }
+    const records = await ProductCategory.find(find);
+    const newRecords = createTreeHelper(records)
     res.render("admin/products-category/create", {
-        pageTitle : "Tạo mới sản phẩm"
+        pageTitle : "Tạo mới sản phẩm",
+        records : newRecords
     })
 }
 module.exports.createPost = async (req, res) => {
@@ -40,7 +47,7 @@ module.exports.createPost = async (req, res) => {
     }
     const record = new ProductCategory(req.body);
     await record.save();
-    res.send("ok")
+    res.redirect("/admin/products-category");
 }
 module.exports.changeStatus = async (req, res) => {
     const status = req.params.status;
@@ -52,4 +59,27 @@ module.exports.changeStatus = async (req, res) => {
     })
 
     res.redirect("back");
+}
+module.exports.deleteStatus = async (req, res) => {
+    const id = req.params.id;
+    await ProductCategory.deleteOne({
+        _id: id
+    })
+    res.redirect(`back`);
+}
+module.exports.editIndex = async(req, res) => {
+    const id = req.params.id;
+    const productCategory = await ProductCategory.findOne({
+        _id : id,
+        deleted : false
+    });
+    const records = await ProductCategory.find({
+        deleted : false
+    })
+    const newRecords = createTreeHelper(records)
+    res.render("admin/products-category/edit", {
+        pageTitle : "Chỉnh sửa danh mục sản phẩm",
+        productCategory : productCategory,
+        records : newRecords
+    })
 }
