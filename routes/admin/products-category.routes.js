@@ -13,6 +13,9 @@ router.post("/products-cactegory/create",
 router.patch(`/products-category/change-status/:status/:id`, productsCategory.changeStatus);
 router.delete(`/products-category/delete-status/:id`, productsCategory.deleteStatus);
 router.get(`/products-category/edit/:id`, productsCategory.editIndex)
-
-
+router.patch(`/products-category/edit/:id`, 
+    upload.single("thumbnail"),
+    uploadCloud.uploadSingle,
+    productsCategory.editPost)
+router.get(`/products-category/detail/:id`, productsCategory.detailProductCategory)
 module.exports = router;
