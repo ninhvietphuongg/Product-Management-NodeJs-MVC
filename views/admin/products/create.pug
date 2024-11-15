@@ -1,4 +1,5 @@
 extends  ../layouts/default.pug
+include ../mixins/select.tree.mixin.pug
 
 block main
   h1(class="mb-4") Thêm mới sản phẩm
@@ -18,6 +19,17 @@ block main
         name="title"
         required
       )
+    div(class="form-group")
+      label(for="parent_id_product") Danh mục cha
+      select(
+        id="parent_id_product"
+        name="parent_id_product"
+        class="form-control"
+        )
+        option(value="") --Chọn danh mục cha 
+        if(category)
+          +select-tree(category)
+
     div(class="form-group")
       label(for="desc") Mô tả
       textarea(

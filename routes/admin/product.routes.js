@@ -20,4 +20,4 @@ router.patch("/products/edit/:id",
       productsAdmin.editPost);
 router.get("/products/detail/:id", productsAdmin.detailIndex);
 
-module.exports = router;
+module.exports = router; 

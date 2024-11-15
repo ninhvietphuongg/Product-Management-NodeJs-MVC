@@ -1,6 +1,8 @@
 const Product = require("../../model/system");
 const helpersFilterStatus = require("../../helpers/filter.status");
 const helpersPagination = require("../../helpers/pagination.helper");
+const createTree = require("../../helpers/create.tree.helpers");
+const ProductCategory = require("../../model/products-category.model")
 // [GET] Index
 module.exports.index = async (req, res) => {
     const find = {
@@ -114,9 +116,14 @@ module.exports.changeMultiStatus = async (req, res) => {
 }
 // [GET] Index create
 module.exports.createIndex = async (req, res) => {
-    res.render("admin/products/create", {
-        pageTitle: "Khởi tạo sản phẩm"
+    const category = await ProductCategory.find({
+        deleted : false
     })
+    const newCategory = createTree(category)
+    res.render("admin/products/create", {
+        pageTitle: "Khởi tạo sản phẩm",
+        category : newCategory
+   })
 }
 // [POST] Create data
 module.exports.createPost = async (req, res) => {
@@ -171,3 +178,4 @@ module.exports.detailIndex = async(req, res) => {
         product : products
     })
 }
+

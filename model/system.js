@@ -4,6 +4,10 @@ mongoose.plugin(slug)
 const productShchema = mongoose.Schema({
     title: String,
     description : String,
+    parent_id_product : {
+        type : String,
+        default : "",
+    },
     price : Number,
     discountPercentage : Number,
     stock : Number,
