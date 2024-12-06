@@ -18,3 +18,25 @@ module.exports.createPostRole = async(req, res) => {
     await role.save();
     res.redirect(`back`)
 }
+module.exports.rolePermission = async(req, res) => {
+    const find = {
+        deleted : false
+    }
+    const records = await Role.find(find)
+    res.render("admin/roles/permissions", {
+        pageTitle : "Danh sách phân quyền",
+        records : records
+    })
+}
+module.exports.rolePermissionPatch = async(req, res) => {
+    const permission = JSON.parse(req.body.roles)
+    for(const item of permission){
+        await Role.updateOne({
+            _id : item.id
+        },{
+            permissions : item.permissions
+        })
+    }
+    req.flash('success', 'Cập nhật phân quyền thành công !');
+    res.redirect(`back`)
+}
