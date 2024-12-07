@@ -1,2 +1,4 @@
 extends ../layouts/default.pug
+include ../mixins/alert.mixin.pug
 block main 
+    +alert-success()

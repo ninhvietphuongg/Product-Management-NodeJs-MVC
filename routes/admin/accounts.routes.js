@@ -12,6 +12,10 @@ router.post("/accounts/create",
     upload.single("avatar"),
     uploadCloud.uploadSingle,
     accountController.createPost,
-
 )
+router.get("/accounts/edit/:id", accountController.editIndex)
+router.patch("/accounts/edit/:id", 
+    upload.single("avatar"),
+    uploadCloud.uploadSingle,
+    accountController.editPost)
 module.exports = router;
