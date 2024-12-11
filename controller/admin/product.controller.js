@@ -3,6 +3,7 @@ const helpersFilterStatus = require("../../helpers/filter.status");
 const helpersPagination = require("../../helpers/pagination.helper");
 const createTree = require("../../helpers/create.tree.helpers");
 const ProductCategory = require("../../model/products-category.model")
+const Account = require("../../model/accounts.model")
 // [GET] Index
 module.exports.index = async (req, res) => {
     const find = {
@@ -39,6 +40,14 @@ module.exports.index = async (req, res) => {
         .sort(sort)
         .skip(objectPagination.skipPages)
         .limit(objectPagination.limitPages)
+    for(const product of products){
+        const user = await Account.findOne({
+            _id : product.createdBy.account_id
+        });
+        if(user){
+            product.accountFullName = user.fullName
+        }
+    }
     res.render("admin/products/index", {
         pageTitle: "Trang danh sách sản phẩm",
         products: products,
@@ -62,8 +71,14 @@ module.exports.changeStatus = async (req, res) => {
 // [DELETE] Delete status
 module.exports.deleteStatus = async (req, res) => {
     const id = req.params.id;
-    await Product.deleteOne({
+    await Product.updateOne({
         _id: id
+    },{
+        deleted : true,
+        deletedBy : {
+            account_id : res.locals.user.id,
+            deletedAt : new Date()
+        }
     })
     res.redirect(`back`);
 }
@@ -135,6 +150,10 @@ module.exports.createPost = async (req, res) => {
         req.body.position = count + 1;
     } else {
         req.body.position = parseInt(req.body.position);
+    }
+
+    req.body.createdBy = {
+        account_id : res.locals.user.id
     }
     const product = new Product(req.body);
     await product.save();

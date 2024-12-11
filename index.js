@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require('body-parser')
 const system = require("./config/system.confix");
+const moment = require("moment")
 const path = require('path');
 const dotenv = require('dotenv')
 dotenv.config();
@@ -26,6 +27,7 @@ app.use(session({ cookie: { maxAge: 60000 }}));
 app.use(flash());
 
 app.locals.prefixAdmin = system.prefixAdmin;
+app.locals.moment = moment
 routesAdmin(app);
 routesClient(app);
 app.listen(port, () => {

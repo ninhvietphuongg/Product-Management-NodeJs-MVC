@@ -4,6 +4,9 @@ include ../mixins/form.change.multi.mixin.pug
 include ../mixins/filter.status.mixin.pug
 include ../mixins/form.search.mixin.pug
 include ../mixins/alert.mixin.pug
+include ../mixins/format.datetime.mixin.pug
+
+
 
 
 block main
@@ -75,6 +78,7 @@ block main
             th Giá
             th Vị trí
             th Trạng thái
+            th Người tạo
             th Hành động
         tbody
           each items, index in products
@@ -119,6 +123,9 @@ block main
                         ) Dừng hoạt động 
                 else 
                   h6 Access Denied
+              td
+                p  #{items.accountFullName}
+                +formatDateTime(items.createdBy.createdAt)
               td
                 a(
                   href=`/${prefixAdmin}/products/detail/${items.id}`
