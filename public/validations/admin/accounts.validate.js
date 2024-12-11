@@ -6,22 +6,18 @@ module.exports.createPost = (req, res, next) => {
     if (!req.body.fullName) {
         req.flash("error", "Vui lòng nhập tiêu đề");
         return res.redirect("back");
-        return;
     }
 
     if (!req.body.email) {
         req.flash("error", "Vui lòng nhập địa chỉ email");
         return res.redirect("back"); 
-        return;
     } else if (!re.test(req.body.email)) {
         req.flash("error", "Địa chỉ email không hợp lệ");
         return res.redirect("back");
-        return;
     }
     if(!req.body.email){
         req.flash("error", "Vui lòng nhập mật khẩu");
         return res.redirect("back");
-        return;
     }else if(!password.test(req.body.password)){
         req.flash("error", "Vui lòng nhập mật khẩu dài hơn");
         res.redirect("back");
