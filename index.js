@@ -27,7 +27,7 @@ app.use(session({ cookie: { maxAge: 60000 }}));
 app.use(flash());
 
 app.locals.prefixAdmin = system.prefixAdmin;
-app.locals.moment = moment
+app.locals.moment = moment;
 routesAdmin(app);
 routesClient(app);
 app.listen(port, () => {

@@ -119,7 +119,8 @@ module.exports.changeMultiStatus = async (req, res) => {
                 await Product.updateOne({
                     _id: id
                 }, {
-                    position: position
+                    position: position,
+                    $push : {updatedBy : updatedBy}
                 })
             }
             res.redirect(`back`);
@@ -181,10 +182,23 @@ module.exports.editPost = async(req, res) => {
     if(req.file){
         req.body.thumbnail = `/admin/uploads/${req.file.filename}`;
     }
-    await Product.updateOne({
-        _id : id
-    },req.body)
-    res.redirect(`/admin/products`)
+    try{
+        const updatedBy = {
+            account_id : res.locals.user.id,
+            updatedAt : new Date()
+        }
+        await Product.updateOne({
+            _id : id
+        },{
+            ...req.body,
+            $push:{updatedBy : updatedBy}
+        })
+        res.redirect(`/admin/products`)
+        req.flash("success", "Cập nhật thành công")
+    }catch(error){
+        req.flash("error", "Cập nhật thất bại")
+    }
+   
 }
 //[GET] index detail
 module.exports.detailIndex = async(req, res) => {
